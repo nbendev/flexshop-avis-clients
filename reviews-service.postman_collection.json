@@ -1,0 +1,82 @@
+{
+	"info": {
+		"name": "reviews-service",
+		"description": "Service Avis-Clients FlexShop (Symfony + API Platform)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{ "key": "baseUrl", "value": "http://localhost:8001/api" }
+	],
+	"item": [
+		{
+			"name": "Liste des avis",
+			"request": {
+				"method": "GET",
+				"url": "{{baseUrl}}/reviews"
+			}
+		},
+		{
+			"name": "Détail d'un avis",
+			"request": {
+				"method": "GET",
+				"url": "{{baseUrl}}/reviews/1"
+			}
+		},
+		{
+			"name": "Avis par produit",
+			"request": {
+				"method": "GET",
+				"url": "{{baseUrl}}/reviews?productId=2"
+			}
+		},
+		{
+			"name": "Créer un avis",
+			"request": {
+				"method": "POST",
+				"header": [
+					{ "key": "Content-Type", "value": "application/json" }
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"productId\": 2,\n  \"authorName\": \"Marie D.\",\n  \"rating\": 5,\n  \"comment\": \"Excellent produit, je recommande !\"\n}"
+				},
+				"url": "{{baseUrl}}/reviews"
+			}
+		},
+		{
+			"name": "Créer un avis - produit inexistant (422)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{ "key": "Content-Type", "value": "application/json" }
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"productId\": 999,\n  \"authorName\": \"Test\",\n  \"rating\": 4\n}"
+				},
+				"url": "{{baseUrl}}/reviews"
+			}
+		},
+		{
+			"name": "Modifier un avis",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{ "key": "Content-Type", "value": "application/merge-patch+json" }
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"rating\": 4\n}"
+				},
+				"url": "{{baseUrl}}/reviews/1"
+			}
+		},
+		{
+			"name": "Supprimer un avis",
+			"request": {
+				"method": "DELETE",
+				"url": "{{baseUrl}}/reviews/1"
+			}
+		}
+	]
+}
